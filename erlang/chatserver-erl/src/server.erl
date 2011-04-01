@@ -44,12 +44,19 @@ process(Socket, Nickname) ->
             RawData = trim_eol(binary_to_list(Data)),
             {Command, [_ | RawMessage]} = lists:splitwith(fun(T) -> [T] =/= " " end, RawData),
             case Command of
+                "PRIVMSG" ->
+                    {Dest, [_ | Message]} = lists:splitwith(fun(T) -> [T] =/= " " end, RawMessage),
+                    handle_command_privmsg(Socket, Nickname, Dest, Message);
                 "QUIT" ->
                     handle_command_quit(Socket, Nickname)
             end;
         {error, closed} ->
             ok
     end.
+
+handle_command_privmsg(Socket, Nickname, Dest, Message) ->
+    gen_server:cast(handler, {privmsg, Nickname, Dest, Message}),
+    process(Socket, Nickname).
 
 handle_command_quit(Socket, Nickname) ->
     Res = gen_server:call(handler, {quit, Nickname}),

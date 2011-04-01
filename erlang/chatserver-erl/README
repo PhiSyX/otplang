@@ -23,5 +23,11 @@ $ telnet 127.0.0.1 6667
 $ CONNECT John
   > NICKLIST :John Mike
 
+PRIVMSG Client #1:
+$ PRIVMSG John Hello
+
+RECV PRIVMSG Client #2:
+$ > PRIVMSG :Mike Hello
+
 QUIT client:
 $ QUIT Bye.

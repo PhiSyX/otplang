@@ -37,6 +37,15 @@ handle_call({quit, Nickname}, _From, Nicklist) ->
 handle_call(_Message, _From, State) ->
     {reply, error, State}.
 
+handle_cast({privmsg, Nickname, Dest, Message}, Nicklist) ->
+    User = dict:find(Dest, Nicklist),
+    case User of
+        {ok, [Socket | _]} ->
+            gen_tcp:send(Socket, "> PRIVMSG :" ++ Nickname ++ " " ++ Message ++ "\n");
+        _ ->
+            ok
+    end,
+    {noreply, Nicklist};
 handle_cast({join, Nickname}, Nicklist) ->
     broadcast(Nickname, "> JOIN :" ++ Nickname ++ "\n", Nicklist),
     {noreply, Nicklist};
