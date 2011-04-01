@@ -1,2 +1,27 @@
 Simple Chat written in Erlang
 =============================
+
+Compile program:
+$ erl -make
+
+Run Erlang VM:
+$ erl -pa vmbin/
+
+Run chat server:
+$ server:connect(6667).
+
+Usage
+-----
+
+CONNECT Client #1:
+$ telnet 127.0.0.1 6667
+$ CONNECT Mike
+  > NICKLIST :Mike
+
+CONNECT Client #2:
+$ telnet 127.0.0.1 6667
+$ CONNECT John
+  > NICKLIST :John Mike
+
+QUIT client:
+$ QUIT Bye.
