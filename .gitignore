@@ -1,0 +1,11 @@
+.exercism/
+.elixir_ls/
+
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+recursion-*.tar
