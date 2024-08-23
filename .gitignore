@@ -1,6 +1,10 @@
 .exercism/
 .elixir_ls/
 
+.formatter.exs
+HELP.md
+mix.exs
+
 /_build/
 /cover/
 /deps/
